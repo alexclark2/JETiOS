@@ -10,9 +10,12 @@ import UIKit
 import MessageUI
 import ContactsUI
 
-class FriendsViewController: UIViewController, MFMessageComposeViewControllerDelegate {
+
+class FriendsViewController: UIViewController, MFMessageComposeViewControllerDelegate, CNContactPickerDelegate {
     
     @IBOutlet var InviteButton: UIButton!
+    @IBOutlet var phoneNumber: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +23,12 @@ class FriendsViewController: UIViewController, MFMessageComposeViewControllerDel
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        
+        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -64,13 +71,30 @@ class FriendsViewController: UIViewController, MFMessageComposeViewControllerDel
         return results
     }()
     
+    // NEW METHOD
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+        print(contact.phoneNumbers)
+        let numbers = contact.phoneNumbers.first
+        print((numbers?.value)?.stringValue ?? "")
+        
+        self.phoneNumber.text = "\((numbers?.value)?.stringValue ?? "")"
+        
+    }
+    
+    func contactPickerDidCancel(_ picker: CNContactPickerViewController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    //OLD METHOD
     func displayMessageInterface() {
         let composeVC = MFMessageComposeViewController()
         composeVC.messageComposeDelegate = self
         
-        // Configure the fields of the interface.
-        composeVC.recipients = ["2147550471"]
-        composeVC.body = "I love Swift!"
+        composeVC.recipients = [phoneNumber.text!]
+        
+        composeVC.body = ( "itms://itunes.apple.com/de/app/x-gift/id839686104?mt=8&uo=4")
         
         // Present the view controller modally.
         if MFMessageComposeViewController.canSendText() {
@@ -80,11 +104,17 @@ class FriendsViewController: UIViewController, MFMessageComposeViewControllerDel
         }
     }
     
+    
     @IBAction func sendMessage(_ sender: Any) {
         displayMessageInterface()
     }
     
+    @IBAction func SearchContact(_ sender: Any) {
+        let contacVC = CNContactPickerViewController()
+        contacVC.delegate = self
+        self.present(contacVC, animated: true, completion: nil)
+    }
+    
+    
 }
-
-
 
