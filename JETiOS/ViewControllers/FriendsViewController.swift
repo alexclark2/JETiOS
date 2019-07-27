@@ -13,9 +13,17 @@ import ContactsUI
 
 class FriendsViewController: UIViewController, MFMessageComposeViewControllerDelegate, CNContactPickerDelegate {
     
-    @IBOutlet var InviteButton: UIButton!
-    @IBOutlet var phoneNumber: UILabel!
     
+    @IBOutlet var InviteButton: UIButton!
+    
+    @IBOutlet var myTableView: UITableView! {
+        didSet {
+            myTableView.dataSource = self as? UITableViewDataSource
+        }
+    }
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,15 +35,92 @@ class FriendsViewController: UIViewController, MFMessageComposeViewControllerDel
         self.navigationController?.isNavigationBarHidden = false
     }
     
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func getContactNumbers() -> [String]{
+        fetchContacts { (contacts) in
+            guard let allContacts = contacts else { return }
+            
+            print(allContacts.count)
+            
+            func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+                return 1
+            }
+            
+            func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+                return allContacts.count
+            }
+            
+            func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath as IndexPath) as UITableViewCell
+                
+                cell.textLabel?.text = self.getContactNumbers()[indexPath.row]
+                
+                return cell
+            }
+            
+        }
+            // Now show these Contacts in a table view controller
+            // In the table view controller, you can capture the selected contacts
+            // Return the selected contacts
+        
+        return [""]
+    }
+    
+    private func fetchContacts(completionHandler: @escaping ([MyContact]?) -> Void) {
+        print("Attempting to fetch contacts today..")
+        
+        var allContacts = [MyContact]()
+        let store = CNContactStore()
+        
+        store.requestAccess(for: .contacts) { (granted, err) in
+            if let err = err {
+                print("Failed to request access:", err)
+                return
+            }
+            
+            if granted {
+                print("Access granted")
+                
+                let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
+                let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
+                
+                do {
+                    
+                    try store.enumerateContacts(with: request, usingBlock: { (contact, stopPointerIfYouWantToStopEnumerating) in
+                        
+                        let givenName = contact.givenName
+                        let familyName = contact.familyName
+                        let phoneNumber = contact.phoneNumbers.first?.value.stringValue ?? ""
+                        print(givenName)
+                        print(familyName)
+                        print(phoneNumber)
+                        
+                        let newContact = MyContact(givenName: givenName, familyName: familyName, phoneNumber: phoneNumber)
+                        
+                        allContacts.append(newContact)
+                    })
+                    
+                    completionHandler(allContacts)
+                    
+                } catch let err {
+                    print("Failed to enumerate contacts:", err)
+                    completionHandler(nil)
+                }
+                
+            } else {
+                print("Access denied..")
+                completionHandler(nil)
+                
+            }
+        }
+    }
+    
+
+    
     
     lazy var contacts: [CNContact] = {
         let contactStore = CNContactStore()
@@ -77,7 +162,6 @@ class FriendsViewController: UIViewController, MFMessageComposeViewControllerDel
         let numbers = contact.phoneNumbers.first
         print((numbers?.value)?.stringValue ?? "")
         
-        self.phoneNumber.text = "\((numbers?.value)?.stringValue ?? "")"
         
     }
     
@@ -86,15 +170,15 @@ class FriendsViewController: UIViewController, MFMessageComposeViewControllerDel
     }
     
     
-    
+
     //OLD METHOD
-    func displayMessageInterface() {
+    func displayMessageInterface(selectedContacts: [String]) {
         let composeVC = MFMessageComposeViewController()
         composeVC.messageComposeDelegate = self
         
-        composeVC.recipients = [phoneNumber.text!]
+        composeVC.recipients = []
         
-        composeVC.body = ( "itms://itunes.apple.com/de/app/x-gift/id839686104?mt=8&uo=4")
+        composeVC.body = ( "Download this new app here! itms://itunes.apple.com/de/app/x-gift/id839686104?mt=8&uo=4")
         
         // Present the view controller modally.
         if MFMessageComposeViewController.canSendText() {
@@ -106,7 +190,8 @@ class FriendsViewController: UIViewController, MFMessageComposeViewControllerDel
     
     
     @IBAction func sendMessage(_ sender: Any) {
-        displayMessageInterface()
+        let selectedContacts = getContactNumbers()
+        displayMessageInterface(selectedContacts: selectedContacts)
     }
     
     @IBAction func SearchContact(_ sender: Any) {
@@ -115,6 +200,6 @@ class FriendsViewController: UIViewController, MFMessageComposeViewControllerDel
         self.present(contacVC, animated: true, completion: nil)
     }
     
-    
-}
+    }
+
 

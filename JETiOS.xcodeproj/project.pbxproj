@@ -26,6 +26,8 @@
 		D07A947B22BE6DEA009C9EA3 /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A947A22BE6DEA009C9EA3 /* StoreViewController.swift */; };
 		D0B14B3D22CFEA8E00DDCB45 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B14B3C22CFEA8E00DDCB45 /* StoreKit.framework */; };
 		D0B14B4022CFF32D00DDCB45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0B14B3F22CFF32D00DDCB45 /* GoogleService-Info.plist */; };
+		D0F5742822EC976900ED0CD6 /* MyContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F5742722EC976800ED0CD6 /* MyContact.swift */; };
+		D0F5742A22ECA79400ED0CD6 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = D0F5742922ECA79400ED0CD6 /* README.txt */; };
 		D0FEC25C22EB7DEE00C0AB79 /* JetiOSProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEC25B22EB7DEE00C0AB79 /* JetiOSProducts.swift */; };
 		D0FEC25F22EB7E9400C0AB79 /* InAppPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEC25E22EB7E9400C0AB79 /* InAppPurchaseViewController.swift */; };
 		D0FEC26122EB7FF300C0AB79 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEC26022EB7FF300C0AB79 /* DetailViewController.swift */; };
@@ -58,6 +60,8 @@
 		D0B14B3C22CFEA8E00DDCB45 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D0B14B3E22CFEABE00DDCB45 /* JETiOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JETiOS.entitlements; sourceTree = "<group>"; };
 		D0B14B3F22CFF32D00DDCB45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D0F5742722EC976800ED0CD6 /* MyContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyContact.swift; sourceTree = "<group>"; };
+		D0F5742922ECA79400ED0CD6 /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		D0FEC25B22EB7DEE00C0AB79 /* JetiOSProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JetiOSProducts.swift; sourceTree = "<group>"; };
 		D0FEC25E22EB7E9400C0AB79 /* InAppPurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchaseViewController.swift; sourceTree = "<group>"; };
 		D0FEC26022EB7FF300C0AB79 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 				D07A945722BE6C1D009C9EA3 /* Assets.xcassets */,
 				D07A945922BE6C1D009C9EA3 /* LaunchScreen.storyboard */,
 				D07A945422BE6C18009C9EA3 /* Main.storyboard */,
+				D0F5742922ECA79400ED0CD6 /* README.txt */,
 				D07A945C22BE6C1D009C9EA3 /* Info.plist */,
 				D0B14B3F22CFF32D00DDCB45 /* GoogleService-Info.plist */,
 			);
@@ -160,6 +165,7 @@
 				D07A947422BE6DA1009C9EA3 /* SettingsViewController.swift */,
 				D07A947622BE6DBA009C9EA3 /* StartScreenViewController.swift */,
 				D07A947822BE6DD8009C9EA3 /* FriendsViewController.swift */,
+				D0F5742722EC976800ED0CD6 /* MyContact.swift */,
 				D07A947A22BE6DEA009C9EA3 /* StoreViewController.swift */,
 			);
 			path = ViewControllers;
@@ -252,6 +258,7 @@
 				D0B14B4022CFF32D00DDCB45 /* GoogleService-Info.plist in Resources */,
 				D07A945822BE6C1D009C9EA3 /* Assets.xcassets in Resources */,
 				D07A945622BE6C18009C9EA3 /* Main.storyboard in Resources */,
+				D0F5742A22ECA79400ED0CD6 /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +320,7 @@
 				D07A946D22BE6D45009C9EA3 /* StartViewController.swift in Sources */,
 				D07A947B22BE6DEA009C9EA3 /* StoreViewController.swift in Sources */,
 				D0FEC26122EB7FF300C0AB79 /* DetailViewController.swift in Sources */,
+				D0F5742822EC976900ED0CD6 /* MyContact.swift in Sources */,
 				D0FEC25C22EB7DEE00C0AB79 /* JetiOSProducts.swift in Sources */,
 				D0FEC25F22EB7E9400C0AB79 /* InAppPurchaseViewController.swift in Sources */,
 				D07A946B22BE6D1B009C9EA3 /* SignUpViewController.swift in Sources */,

@@ -54,7 +54,8 @@ class GameScene: SKScene {
     let projectileName = "Projectile"
     let scoreLabelName = "scoreLabel"
     
-    // 1
+    var score = NSInteger()
+    
     let player = SKSpriteNode(imageNamed: "F22Raptor")
     
     let playerName = "F22Raptor"
@@ -85,6 +86,13 @@ class GameScene: SKScene {
         let backgroundMusic = SKAudioNode(fileNamed: "backgroundMusic.caf")
         backgroundMusic.autoplayLooped = true
         addChild(backgroundMusic)
+        
+        score = 0
+        scoreLabel = SKLabelNode(fontNamed:"MarkerFelt-Wide")
+        scoreLabel.position = CGPoint( x: self.frame.midX, y: 3 * self.frame.size.height / 4 )
+        scoreLabel.zPosition = 100
+        scoreLabel.text = String(score)
+        self.addChild(scoreLabel)
         
     }
     
